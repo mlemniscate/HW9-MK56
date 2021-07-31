@@ -1,41 +1,41 @@
 package ir.maktab.repository.impl;
 
 import ir.maktab.base.repository.impl.BaseRepositoryImpl;
-import ir.maktab.domain.Customer;
-import ir.maktab.repository.CustomerRepository;
+import ir.maktab.domain.Cart;
+import ir.maktab.repository.CartRepository;
 
 import java.sql.Connection;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomerRepositoryImpl extends BaseRepositoryImpl<Customer, Long> implements CustomerRepository {
+public class CartRepositoryImpl extends BaseRepositoryImpl<Cart, Long> implements CartRepository {
 
-    protected CustomerRepositoryImpl(Connection connection) {
+    protected CartRepositoryImpl(Connection connection) {
         super(connection);
     }
 
     @Override
-    public Customer save(Customer customer) {
+    public Cart save(Cart customer) {
         return null;
     }
 
     @Override
-    public Customer update(Customer customer) {
+    public Cart update(Cart customer) {
         return null;
     }
 
     @Override
-    public List<Customer> findAll() {
+    public List<Cart> findAll() {
         return null;
     }
 
     @Override
-    public List<Customer> findAllByIds(Collection<Long> longs) {
+    public List<Cart> findAllByIds(Collection<Long> longs) {
         return null;
     }
 
     @Override
-    public Customer findByID(Long aLong) {
+    public Cart findByID(Long aLong) {
         return null;
     }
 
