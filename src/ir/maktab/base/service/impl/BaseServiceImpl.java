@@ -45,4 +45,9 @@ public class BaseServiceImpl<E extends BaseEntity<ID>, ID, R extends BaseReposit
     public Boolean deleteById(ID id) {
         return repository.deleteById(id);
     }
+
+    @Override
+    public Boolean isExist(ID id) {
+        return repository.isExist(id);
+    }
 }

@@ -19,4 +19,6 @@ public interface BaseRepository<E extends BaseEntity<ID>, ID>{
 
     Boolean deleteById(ID id);
 
+    Boolean isExist(ID id);
+
 }

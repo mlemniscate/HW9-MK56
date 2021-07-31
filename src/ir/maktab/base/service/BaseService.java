@@ -19,4 +19,6 @@ public interface BaseService<E extends BaseEntity<ID>, ID>{
 
     Boolean deleteById(ID id);
 
+    Boolean isExist(ID id);
+
 }
