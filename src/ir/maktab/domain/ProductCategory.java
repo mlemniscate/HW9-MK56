@@ -1,14 +1,11 @@
 package ir.maktab.domain;
 
+import ir.maktab.base.domain.BaseEntity;
+
 import java.util.List;
 
-public class ProductCategory extends Category<ProductCategory>{
+public class ProductCategory extends BaseEntity<Integer> {
 
-    public ProductCategory(List<ProductCategory> categories, ProductCategory parent) {
-        super(categories, parent);
-    }
-
-    public ProductCategory(Integer id, List<ProductCategory> categories, ProductCategory parent) {
-        super(id, categories, parent);
-    }
+    private List<ProductCategory> productCategories;
+    private ProductCategory parent;
 }
