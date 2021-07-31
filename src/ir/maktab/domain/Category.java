@@ -4,7 +4,7 @@ import ir.maktab.base.domain.BaseEntity;
 
 import java.util.List;
 
-public class Category<T extends Category<T>> extends BaseEntity<Integer> {
+public abstract class Category<T extends Category<T>> extends BaseEntity<Integer> {
 
     private List<T> categories;
     private T parent;
