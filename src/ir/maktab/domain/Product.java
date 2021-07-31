@@ -2,22 +2,26 @@ package ir.maktab.domain;
 
 import ir.maktab.base.domain.BaseEntity;
 
+import java.util.List;
+
 public class Product extends BaseEntity<Long> {
     private String name;
     private Integer categoryId;
     private double price;
     private int stock;
+    private List<ProductAttribute> attributes;
 
-    public Product(String name, Integer categoryId, double price, int stock) {
-        this(0L, name, categoryId, price, stock);
+    public Product(String name, Integer categoryId, double price, int stock,  List<ProductAttribute> attributes) {
+        this(0L, name, categoryId, price, stock, attributes);
     }
 
-    public Product(Long id, String name, Integer categoryId, double price, int stock) {
+    public Product(Long id, String name, Integer categoryId, double price, int stock, List<ProductAttribute> attributes) {
         super(id);
         this.name = name;
         this.categoryId = categoryId;
         this.price = price;
         this.stock = stock;
+        this.attributes = attributes;
     }
 
     @Override
@@ -27,6 +31,14 @@ public class Product extends BaseEntity<Long> {
                 "Price: %.2f$%n",
                 name, price
         );
+    }
+
+    public List<ProductAttribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<ProductAttribute> attributes) {
+        this.attributes = attributes;
     }
 
     public String getName() {
