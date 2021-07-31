@@ -1,19 +1,17 @@
-package ir.maktab.domain;
-
-import ir.maktab.base.domain.BaseEntity;
+package ir.maktab.base.domain;
 
 import java.util.List;
 
-public abstract class Category<T extends Category<T>> extends BaseEntity<Integer> {
+public class BaseCategory<T extends BaseCategory<T>> extends BaseEntity<Integer> {
 
     private List<T> categories;
     private T parent;
 
-    public Category(List<T> categories, T parent) {
+    public BaseCategory(List<T> categories, T parent) {
         this(0, categories, parent);
     }
 
-    public Category(Integer id, List<T> categories, T parent) {
+    public BaseCategory(Integer id, List<T> categories, T parent) {
         super(id);
         this.categories = categories;
         this.parent = parent;
