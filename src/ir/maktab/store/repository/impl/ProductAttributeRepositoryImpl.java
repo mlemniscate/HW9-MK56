@@ -15,12 +15,12 @@ public class ProductAttributeRepositoryImpl extends BaseRepositoryImpl<ProductAt
     }
 
     @Override
-    public ProductAttribute save(ProductAttribute order) {
+    public Boolean save(ProductAttribute order) {
         return null;
     }
 
     @Override
-    public ProductAttribute update(ProductAttribute order) {
+    public Boolean update(ProductAttribute order) {
         return null;
     }
 
@@ -46,6 +46,11 @@ public class ProductAttributeRepositoryImpl extends BaseRepositoryImpl<ProductAt
 
     @Override
     public Boolean isExist(Long aLong) {
+        return null;
+    }
+
+    @Override
+    public List<ProductAttribute> findAllByProductId() {
         return null;
     }
 }

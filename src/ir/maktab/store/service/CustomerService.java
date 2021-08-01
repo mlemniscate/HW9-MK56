@@ -12,4 +12,5 @@ public interface CustomerService extends BaseService<Customer, Long> {
     Customer signUp() throws SQLException;
 
     void depositBalance(Customer customer) throws SQLException;
+
 }

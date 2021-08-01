@@ -15,12 +15,12 @@ public class ShipperRepositoryImpl extends BaseRepositoryImpl<Shipper, Integer> 
     }
 
     @Override
-    public Shipper save(Shipper productCategory) {
+    public Boolean save(Shipper productCategory) {
         return null;
     }
 
     @Override
-    public Shipper update(Shipper productCategory) {
+    public Boolean update(Shipper productCategory) {
         return null;
     }
 

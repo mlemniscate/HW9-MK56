@@ -2,16 +2,17 @@ package ir.maktab.store.base.repository;
 
 import ir.maktab.store.base.domain.BaseEntity;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
 public interface BaseRepository<E extends BaseEntity<ID>, ID>{
 
-    E save(E e);
+    Boolean save(E e);
 
-    E update(E e);
+    Boolean update(E e);
 
-    List<E> findAll();
+    List<E> findAll() throws SQLException;
 
     List<E> findAllByIds(Collection<ID> ids);
 

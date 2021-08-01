@@ -4,16 +4,20 @@ import ir.maktab.store.base.repository.impl.BaseRepositoryImpl;
 import ir.maktab.store.domain.Customer;
 import ir.maktab.store.repository.CustomerRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class CustomerRepositoryImpl extends BaseRepositoryImpl<Customer, Long> implements CustomerRepository {
 
-    private static final String SELECT_ONE_USER_PASS_QUERY = "SELECT * FROM customers WHERE username = ? && password = ?";
+    private static final String SELECT_ONE_USER_PASS_QUERY = "SELECT * FROM customers WHERE username = ? && password = ? && is_deleted = 0";
+    private static final String INSERT_QUERY = "INSERT INTO customers (first_name, last_name, username, password, balance)" +
+            "VALUES (?, ?, ?, ?, ?)";
+    private static final String SELECT_ALL_QUERY = "SELECT * FROM customers WHERE is_deleted = 0";
+    private static final String UPDATE_QUERY = "UPDATE customers " +
+            "SET first_name = ?, last_name = ?, username = ?, password = ?, balance = ? " +
+            "WHERE id = ? && is_deleted = 0";
 
     private final Connection connection;
 
@@ -23,18 +27,51 @@ public class CustomerRepositoryImpl extends BaseRepositoryImpl<Customer, Long> i
     }
 
     @Override
-    public Customer save(Customer customer) {
-        return null;
+    public Boolean save(Customer customer) {
+        int insertResult = 0;
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY);) {
+            statement.setString(1, customer.getFirstName());
+            statement.setString(2, customer.getLastName());
+            statement.setString(3, customer.getUsername());
+            statement.setString(4, customer.getPassword());
+            statement.setDouble(5, customer.getBalance());
+            insertResult = statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return insertResult > 0;
     }
 
     @Override
-    public Customer update(Customer customer) {
-        return null;
+    public Boolean update(Customer customer) {
+        int insertResult = 0;
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY);) {
+            statement.setString(1, customer.getFirstName());
+            statement.setString(2, customer.getLastName());
+            statement.setString(3, customer.getUsername());
+            statement.setString(4, customer.getPassword());
+            statement.setDouble(5, customer.getBalance());
+            statement.setLong(6, customer.getId());
+            insertResult = statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return insertResult > 0;
     }
 
     @Override
     public List<Customer> findAll() {
-        return null;
+        List<Customer> carts = null;
+        try (Statement statement = connection.createStatement()) {
+            carts = new ArrayList<>();
+            ResultSet result = statement.executeQuery(SELECT_ALL_QUERY);
+            while(result.next()) {
+                carts.add(createObject(result));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return carts;
     }
 
     @Override

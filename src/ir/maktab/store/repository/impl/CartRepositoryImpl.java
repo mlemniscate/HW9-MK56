@@ -15,12 +15,12 @@ public class CartRepositoryImpl extends BaseRepositoryImpl<Cart, Long> implement
     }
 
     @Override
-    public Cart save(Cart customer) {
+    public Boolean save(Cart customer) {
         return null;
     }
 
     @Override
-    public Cart update(Cart customer) {
+    public Boolean update(Cart customer) {
         return null;
     }
 

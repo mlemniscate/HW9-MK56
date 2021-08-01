@@ -4,6 +4,7 @@ import ir.maktab.store.base.domain.BaseEntity;
 import ir.maktab.store.base.repository.BaseRepository;
 import ir.maktab.store.base.service.BaseService;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,17 +18,17 @@ public class BaseServiceImpl<E extends BaseEntity<ID>, ID, R extends BaseReposit
     }
 
     @Override
-    public E save(E e) {
+    public Boolean save(E e) {
         return repository.save(e);
     }
 
     @Override
-    public E update(E e) {
+    public Boolean update(E e) {
         return repository.update(e);
     }
 
     @Override
-    public List<E> findAll() {
+    public List<E> findAll() throws SQLException {
         return repository.findAll();
     }
 

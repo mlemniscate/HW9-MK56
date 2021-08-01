@@ -1,13 +1,9 @@
-/*
 package ir.maktab.store.controler.menu;
 
-import ir.maktab.domain.Category;
-import ir.maktab.domain.Customer;
-import ir.maktab.domain.MainCategory;
-import ir.maktab.util.service.CategoryService;
-import ir.maktab.util.service.CustomerService;
-import ir.maktab.util.service.MainCategoryService;
-import ir.maktab.util.service.ProductService;
+
+import ir.maktab.store.ApplicationContext;
+import ir.maktab.store.domain.Customer;
+import ir.maktab.store.domain.ProductCategory;
 
 import java.sql.SQLException;
 
@@ -25,20 +21,19 @@ public class CustomerMenu extends Menu implements RunnableMenu<Void>{
         while (true) {
             showMenu();
             switch (getChosenItem()) {
-                case 1:
+                /*case 1:
                     new ShowCartMenu(customer).runMenu();
-                    break;
+                    break;*/
                 case 2:
-                    MainCategory mainCategory = MainCategoryService.chooseMainCategory();
-                    Category category = CategoryService.chooseCategory(mainCategory);
-                    new ProductMenu(customer, ProductService.getProducts(category)).runMenu();
+                    ProductCategory productCategory = ApplicationContext.productCategoryService.getCategory();
+//                    new ProductMenu(customer, ApplicationContext.productService.getProducts(category)).runMenu();
                     break;
                 case 3:
-                    CustomerService.depositBalance(customer);
+                    ApplicationContext.customerService.depositBalance(customer);
                     break;
-                case 4:
+                /*case 4:
                     new EditCustomerInformationMenu(customer).runMenu();
-                    break;
+                    break;*/
                 case 5:
                     if(new CheckMenu("Are you sure you want to log out?").runMenu()) return null;
                     else break;
@@ -48,4 +43,3 @@ public class CustomerMenu extends Menu implements RunnableMenu<Void>{
 }
 
 
-*/

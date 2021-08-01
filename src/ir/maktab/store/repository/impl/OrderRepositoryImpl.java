@@ -15,12 +15,12 @@ public class OrderRepositoryImpl extends BaseRepositoryImpl<Order, Long> impleme
     }
 
     @Override
-    public Order save(Order order) {
+    public Boolean save(Order order) {
         return null;
     }
 
     @Override
-    public Order update(Order order) {
+    public Boolean update(Order order) {
         return null;
     }
 

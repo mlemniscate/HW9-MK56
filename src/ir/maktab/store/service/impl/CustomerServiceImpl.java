@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class CustomerServiceImpl extends BaseServiceImpl<Customer, Long, CustomerRepository> implements CustomerService {
 
-    private CustomerRepository repository;
+    private final CustomerRepository repository;
 
     public CustomerServiceImpl(CustomerRepository repository) {
         super(repository);

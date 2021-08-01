@@ -15,12 +15,12 @@ public class ProductPurchasedRepositoryImpl extends BaseProductRepositoryImpl<Pr
     }
 
     @Override
-    public ProductPurchased save(ProductPurchased order) {
+    public Boolean save(ProductPurchased order) {
         return null;
     }
 
     @Override
-    public ProductPurchased update(ProductPurchased order) {
+    public Boolean update(ProductPurchased order) {
         return null;
     }
 
