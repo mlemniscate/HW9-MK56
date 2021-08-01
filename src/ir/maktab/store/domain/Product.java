@@ -1,52 +1,21 @@
 package ir.maktab.store.domain;
 
-import ir.maktab.store.base.domain.BaseEntity;
+import ir.maktab.store.base.domain.BaseProduct;
 
 import java.util.List;
 
-public class Product extends BaseEntity<Long> {
-    private String name;
+public class Product extends BaseProduct<Product> {
     private Integer categoryId;
-    private double price;
-    private int stock;
-    private List<ProductAttribute> attributes;
+    private Integer stock;
 
-    public Product(String name, Integer categoryId, double price, int stock,  List<ProductAttribute> attributes) {
-        this(0L, name, categoryId, price, stock, attributes);
+    public Product(String name, double price, List<ProductAttribute> attributes, Integer categoryId, Integer stock) {
+        this(0L, name, price, attributes, categoryId, stock);
     }
 
-    public Product(Long id, String name, Integer categoryId, double price, int stock, List<ProductAttribute> attributes) {
-        super(id);
-        this.name = name;
+    public Product(Long id, String name, double price, List<ProductAttribute> attributes, Integer categoryId, Integer stock) {
+        super(id, name, price, attributes);
         this.categoryId = categoryId;
-        this.price = price;
         this.stock = stock;
-        this.attributes = attributes;
-    }
-
-    @Override
-    public String toString() {
-        return String.format (
-                "Product name: %s%n" +
-                "Price: %.2f$%n",
-                name, price
-        );
-    }
-
-    public List<ProductAttribute> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(List<ProductAttribute> attributes) {
-        this.attributes = attributes;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Integer getCategoryId() {
@@ -57,19 +26,11 @@ public class Product extends BaseEntity<Long> {
         this.categoryId = categoryId;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 }

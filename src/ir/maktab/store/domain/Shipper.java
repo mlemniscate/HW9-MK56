@@ -3,6 +3,7 @@ package ir.maktab.store.domain;
 import ir.maktab.store.base.domain.BaseEntity;
 
 public class Shipper extends BaseEntity<Integer> {
+
     private String name;
     private String phone;
     private double price;

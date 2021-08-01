@@ -1,41 +1,41 @@
 package ir.maktab.store.repository.impl;
 
 import ir.maktab.store.base.repository.impl.BaseProductRepositoryImpl;
-import ir.maktab.store.domain.Product;
-import ir.maktab.store.repository.ProductRepository;
+import ir.maktab.store.domain.ProductPurchased;
+import ir.maktab.store.repository.ProductPurchasedRepository;
 
 import java.sql.Connection;
 import java.util.Collection;
 import java.util.List;
 
-public class ProductRepositoryImpl extends BaseProductRepositoryImpl<Product> implements ProductRepository {
+public class ProductPurchasedRepositoryImpl extends BaseProductRepositoryImpl<ProductPurchased> implements ProductPurchasedRepository {
 
-    protected ProductRepositoryImpl(Connection connection) {
+    protected ProductPurchasedRepositoryImpl(Connection connection) {
         super(connection);
     }
 
     @Override
-    public Product save(Product order) {
+    public ProductPurchased save(ProductPurchased order) {
         return null;
     }
 
     @Override
-    public Product update(Product order) {
+    public ProductPurchased update(ProductPurchased order) {
         return null;
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<ProductPurchased> findAll() {
         return null;
     }
 
     @Override
-    public List<Product> findAllByIds(Collection<Long> longs) {
+    public List<ProductPurchased> findAllByIds(Collection<Long> longs) {
         return null;
     }
 
     @Override
-    public Product findByID(Long aLong) {
+    public ProductPurchased findByID(Long aLong) {
         return null;
     }
 
