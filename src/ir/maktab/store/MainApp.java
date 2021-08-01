@@ -1,7 +1,7 @@
-package ir.maktab;
+package ir.maktab.store;
 
 
-import ir.maktab.store.DatabaseInitializer;
+import ir.maktab.store.controler.menu.FirstMenu;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,13 +13,14 @@ public class MainApp {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/store_app", "root", "milad5050062330");
-            new DatabaseInitializer().createTables(connection);
+        connection = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/store_app", "root", "milad5050062330");
+        ApplicationContext.databaseInitializer.createTables(connection);
+        new FirstMenu().runMenu();
         /*MainCategoryService.addFirstCategories();
         CategoryService.addFirstCategories();*/
-            /*new FirstMenu().runMenu();*/
-            connection.close();
+        /*new FirstMenu().runMenu();*/
+        connection.close();
     }
 
     public static Connection getConnection() {

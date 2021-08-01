@@ -1,3 +1,4 @@
+/*
 package ir.maktab.store.controler.menu;
 
 import ir.maktab.domain.Customer;
@@ -71,3 +72,4 @@ public class ShowCartMenu extends Menu implements RunnableMenu<Void>{
         CustomerService.update(customer);
     }
 }
+*/

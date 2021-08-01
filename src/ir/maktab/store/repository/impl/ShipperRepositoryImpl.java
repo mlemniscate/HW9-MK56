@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ShipperRepositoryImpl extends BaseRepositoryImpl<Shipper, Integer> implements ShipperRepository {
 
-    protected ShipperRepositoryImpl(Connection connection) {
+    public ShipperRepositoryImpl(Connection connection) {
         super(connection);
     }
 

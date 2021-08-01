@@ -1,3 +1,4 @@
+/*
 package ir.maktab.store.controler.menu;
 
 import ir.maktab.domain.Customer;
@@ -37,3 +38,4 @@ public class EditCustomerInformationMenu extends Menu implements RunnableMenu<Vo
         }
     }
 }
+*/

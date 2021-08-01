@@ -10,7 +10,7 @@ import java.util.List;
 
 public class OrderRepositoryImpl extends BaseRepositoryImpl<Order, Long> implements OrderRepository {
 
-    protected OrderRepositoryImpl(Connection connection) {
+    public OrderRepositoryImpl(Connection connection) {
         super(connection);
     }
 

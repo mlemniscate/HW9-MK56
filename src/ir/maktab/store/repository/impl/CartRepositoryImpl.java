@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CartRepositoryImpl extends BaseRepositoryImpl<Cart, Long> implements CartRepository {
 
-    protected CartRepositoryImpl(Connection connection) {
+    public CartRepositoryImpl(Connection connection) {
         super(connection);
     }
 

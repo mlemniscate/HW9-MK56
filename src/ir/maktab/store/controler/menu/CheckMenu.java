@@ -7,6 +7,7 @@ public class CheckMenu extends Menu implements RunnableMenu<Boolean>{
     public CheckMenu(String message) {
         super(new String[]{"Yes", "No"});
         this.message = message;
+
     }
 
     @Override

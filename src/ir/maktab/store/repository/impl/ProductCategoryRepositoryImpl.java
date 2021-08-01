@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ProductCategoryRepositoryImpl extends BaseRepositoryImpl<ProductCategory, Integer> implements ProductCategoryRepository {
 
-    protected ProductCategoryRepositoryImpl(Connection connection) {
+    public ProductCategoryRepositoryImpl(Connection connection) {
         super(connection);
     }
 

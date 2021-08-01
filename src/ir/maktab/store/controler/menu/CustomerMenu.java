@@ -1,3 +1,4 @@
+/*
 package ir.maktab.store.controler.menu;
 
 import ir.maktab.domain.Category;
@@ -47,3 +48,4 @@ public class CustomerMenu extends Menu implements RunnableMenu<Void>{
 }
 
 
+*/

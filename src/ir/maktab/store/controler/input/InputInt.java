@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 /*
  * InputInt for taking int inputs from console.
  * */
-public class InputInt extends ir.maktab.util.input.Input {
+public class InputInt extends Input {
 
     private final int maxValue;
     private final int minValue;

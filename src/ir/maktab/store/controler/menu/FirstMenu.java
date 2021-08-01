@@ -1,14 +1,14 @@
 package ir.maktab.store.controler.menu;
 
-import ir.maktab.domain.Customer;
-import ir.maktab.util.service.CustomerService;
+
+import ir.maktab.store.ApplicationContext;
 
 import java.sql.SQLException;
-import java.util.Objects;
 
 /**
- * FirstMenu class for starting program and first menu of the program.
- */
+ * FirstMenu class for starting program and first menu of the program.*/
+
+
 public class FirstMenu extends Menu implements RunnableMenu<Void> {
 
     public FirstMenu() {
@@ -22,12 +22,12 @@ public class FirstMenu extends Menu implements RunnableMenu<Void> {
             showMenu();
             switch (getChosenItem()) {
                 case 1:
-                    Customer customer = CustomerService.login();
+                    /*Customer customer = CustomerServiceImpl.login();
                     if(!Objects.isNull(customer))
                         new CustomerMenu(customer).runMenu();
-                    break;
+                    break;*/
                 case 2:
-                    CustomerService.signUp();
+                    ApplicationContext.customerService.login();
                     break;
                 case 3:
                     if (new CheckMenu("Are you sure you want to exit?").runMenu()) return null;

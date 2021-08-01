@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /*
  * InputInt for taking String inputs from console.
  * */
-public class InputString extends ir.maktab.util.input.Input {
+public class InputString extends Input {
 
     private final String regex;
     private final String[] unAllowedValues;

@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 /*
  * InputDouble for taking double inputs from console.
  * */
-public class InputDouble extends ir.maktab.util.input.Input {
+public class InputDouble extends Input {
 
     private final double maxValue;
     private final double minValue;

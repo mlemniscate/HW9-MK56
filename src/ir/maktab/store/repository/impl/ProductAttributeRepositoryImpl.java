@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ProductAttributeRepositoryImpl extends BaseRepositoryImpl<ProductAttribute, Long> implements ProductAttributeRepository {
 
-    protected ProductAttributeRepositoryImpl(Connection connection) {
+    public ProductAttributeRepositoryImpl(Connection connection) {
         super(connection);
     }
 
