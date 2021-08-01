@@ -10,7 +10,7 @@ public class RightPair<T extends Comparable<T>> {
         this.list = list;
     }
 
-    public ArrayList<T> deleteWrongPairs() {
+    public void deleteWrongPairs() {
         int listSize = list.size();
         if(listSize > 0) {
             if(listSize % 2 != 0) list.remove(listSize - 1);
@@ -24,6 +24,5 @@ public class RightPair<T extends Comparable<T>> {
                 i+=2;
             }
         }
-        return list;
     }
 }
