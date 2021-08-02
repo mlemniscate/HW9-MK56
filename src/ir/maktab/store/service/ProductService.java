@@ -3,8 +3,9 @@ package ir.maktab.store.service;
 import ir.maktab.store.base.service.BaseProductService;
 import ir.maktab.store.domain.Product;
 
-import java.util.List;
+import java.sql.SQLException;
 
 public interface ProductService extends BaseProductService<Product> {
-    List<Product> getProducts(Integer categoryId);
+
+    Product getProduct() throws SQLException;
 }

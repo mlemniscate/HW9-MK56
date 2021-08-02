@@ -65,7 +65,7 @@ public class ProductRepositoryImpl extends BaseProductRepositoryImpl<Product> im
             statement.setLong(1, categoryId);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-//                products.add(createObject(result));
+                products.add(createObject(result));
             }
         } catch (SQLException e) {
             System.out.println("You have a problem in your customer select user pass query.");
@@ -74,11 +74,14 @@ public class ProductRepositoryImpl extends BaseProductRepositoryImpl<Product> im
         return null;
     }
 
-//    public Product createObject(ResultSet result) throws SQLException {
-//        return new Product(
-//                result.getString("product_name"),
-//                result.getDouble("price"),
-//                new ProductAttributeRepository().
-//        );
-//    }
+    public Product createObject(ResultSet result) throws SQLException {
+        return new Product(
+                result.getLong("id"),
+                result.getString("product_name"),
+                result.getDouble("price"),
+                new ProductAttributeRepositoryImpl(connection).findAllByProductId(result.getLong("id")),
+                result.getInt("category_id"),
+                result.getInt("stock")
+        );
+    }
 }

@@ -18,6 +18,14 @@ public class Product extends BaseProduct<Product> {
         this.stock = stock;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Product Name: %s%n" +
+                "Price: %s%n%n",
+                getName(),getPrice()
+        );
+    }
+
     public Integer getCategoryId() {
         return categoryId;
     }
