@@ -12,6 +12,10 @@ public class Cart extends BaseEntity<Long> {
     private Date lastUpdatedDate;
     private Map<Product, Integer> products;
 
+    public Cart(Long customerId, Date createdDate, Date lastUpdatedDate) {
+        this(customerId, createdDate, lastUpdatedDate, null);
+    }
+
     public Cart(Long customerId, Date createdDate, Date lastUpdatedDate, Map<Product, Integer> products) {
         this(0L, customerId, createdDate, lastUpdatedDate, products);
     }
