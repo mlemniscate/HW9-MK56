@@ -5,6 +5,7 @@ import ir.maktab.store.ApplicationContext;
 import ir.maktab.store.domain.Cart;
 import ir.maktab.store.domain.Customer;
 import ir.maktab.store.domain.Product;
+import ir.maktab.store.front.input.InputInt;
 
 import java.sql.SQLException;
 
@@ -29,7 +30,8 @@ public class CustomerMenu extends Menu implements RunnableMenu<Void>{
                     break;*/
                 case 2:
                     Product product = ApplicationContext.productService.getProduct();
-                    ApplicationContext.cartService.addProductToCart(product, cart);
+                    int quantity = new InputInt("How much do you want?", product.getStock(), 1, null).getIntInput();
+                    ApplicationContext.cartService.addProductToCart(product, cart, quantity);
                     break;
                 case 3:
                     ApplicationContext.customerService.depositBalance(customer);

@@ -16,14 +16,15 @@ public class CartServiceImpl extends BaseServiceImpl<Cart, Long, CartRepository>
     }
 
     @Override
-    public void addProductToCart(Product product, Cart cart) {
+    public void addProductToCart(Product product, Cart cart, int quantity) {
         if(hasSameProduct(product, cart)){
-            
+            cart.getProducts().put(product, cart.getProducts().get(product) + quantity);
         }else if(cart.getProducts().size() < cart.getProductLimit()) {
-
+            cart.getProducts().put(product, quantity);
         } else {
-
+            System.out.println("Your cart is full!");
         }
+        System.out.println(cart.getProducts().get(product));
     }
 
     private boolean hasSameProduct(Product product, Cart cart) {

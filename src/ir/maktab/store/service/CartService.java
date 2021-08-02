@@ -5,7 +5,7 @@ import ir.maktab.store.domain.Cart;
 import ir.maktab.store.domain.Product;
 
 public interface CartService extends BaseService<Cart, Long> {
-    void addProductToCart(Product product, Cart cart);
+    void addProductToCart(Product product, Cart cart, int quantity);
 
     Cart findByCustomerId(Long customerId);
 }
