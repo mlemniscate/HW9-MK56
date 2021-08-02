@@ -10,22 +10,36 @@ public class Cart extends BaseEntity<Long> {
     private Long customerId;
     private Date createdDate;
     private Date lastUpdatedDate;
+    private Integer productLimit;
     private Map<Product, Integer> products;
 
     public Cart(Long customerId, Date createdDate, Date lastUpdatedDate) {
-        this(customerId, createdDate, lastUpdatedDate, null);
+        this(customerId, createdDate, lastUpdatedDate, 0);
     }
 
-    public Cart(Long customerId, Date createdDate, Date lastUpdatedDate, Map<Product, Integer> products) {
-        this(0L, customerId, createdDate, lastUpdatedDate, products);
+    public Cart(Long customerId, Date createdDate, Date lastUpdatedDate, Integer productLimit) {
+        this(customerId, createdDate, lastUpdatedDate, null, productLimit);
     }
 
-    public Cart(Long aLong, Long customerId, Date createdDate, Date lastUpdatedDate, Map<Product, Integer> products) {
+    public Cart(Long customerId, Date createdDate, Date lastUpdatedDate, Map<Product, Integer> products, Integer productLimit) {
+        this(0L, customerId, createdDate, lastUpdatedDate, products, productLimit);
+    }
+
+    public Cart(Long aLong, Long customerId, Date createdDate, Date lastUpdatedDate, Map<Product, Integer> products, Integer productLimit) {
         super(aLong);
         this.customerId = customerId;
         this.createdDate = createdDate;
         this.lastUpdatedDate = lastUpdatedDate;
         this.products = products;
+        this.productLimit = productLimit;
+    }
+
+    public Integer getProductLimit() {
+        return productLimit;
+    }
+
+    public void setProductLimit(Integer productLimit) {
+        this.productLimit = productLimit;
     }
 
     public Map<Product, Integer> getProducts() {
