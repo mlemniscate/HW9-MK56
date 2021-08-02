@@ -2,6 +2,7 @@ package ir.maktab.store.front.menu;
 
 
 import ir.maktab.store.ApplicationContext;
+import ir.maktab.store.domain.Cart;
 import ir.maktab.store.domain.Customer;
 import ir.maktab.store.domain.Product;
 
@@ -9,10 +10,12 @@ import java.sql.SQLException;
 
 public class CustomerMenu extends Menu implements RunnableMenu<Void>{
     private Customer customer;
+    private Cart cart;
 
-    public CustomerMenu(Customer customer) {
+    public CustomerMenu(Customer customer, Cart cart) {
         super(new String[]{"Show Cart and Payment", "Add Product to Cart", "Deposit Balance", "Edit Profile and Info", "Log Out"});
         this.customer = customer;
+        this.cart = cart;
         System.out.printf("\n\nWelcome to your page %s %s.%n", customer.getFirstName(), customer.getLastName());
     }
 
@@ -26,7 +29,7 @@ public class CustomerMenu extends Menu implements RunnableMenu<Void>{
                     break;*/
                 case 2:
                     Product product = ApplicationContext.productService.getProduct();
-                    ApplicationContext.cartService.addProductToCart(product);
+                    ApplicationContext.cartService.addProductToCart(product, cart);
                     break;
                 case 3:
                     ApplicationContext.customerService.depositBalance(customer);

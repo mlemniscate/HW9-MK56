@@ -25,8 +25,8 @@ public class Cart extends BaseEntity<Long> {
         this(0L, customerId, createdDate, lastUpdatedDate, products, productLimit);
     }
 
-    public Cart(Long aLong, Long customerId, Date createdDate, Date lastUpdatedDate, Map<Product, Integer> products, Integer productLimit) {
-        super(aLong);
+    public Cart(Long id, Long customerId, Date createdDate, Date lastUpdatedDate, Map<Product, Integer> products, Integer productLimit) {
+        super(id);
         this.customerId = customerId;
         this.createdDate = createdDate;
         this.lastUpdatedDate = lastUpdatedDate;

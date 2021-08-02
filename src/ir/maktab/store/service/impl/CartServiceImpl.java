@@ -16,7 +16,25 @@ public class CartServiceImpl extends BaseServiceImpl<Cart, Long, CartRepository>
     }
 
     @Override
-    public void addProductToCart(Product product) {
+    public void addProductToCart(Product product, Cart cart) {
+        if(hasSameProduct(product, cart)){
+            
+        }else if(cart.getProducts().size() < cart.getProductLimit()) {
 
+        } else {
+
+        }
+    }
+
+    private boolean hasSameProduct(Product product, Cart cart) {
+        for (Product productKey : cart.getProducts().keySet()) {
+            if(productKey.getId().equals(product.getId())) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Cart findByCustomerId(Long customerId) {
+        return null;
     }
 }

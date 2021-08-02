@@ -2,6 +2,7 @@ package ir.maktab.store.front.menu;
 
 
 import ir.maktab.store.ApplicationContext;
+import ir.maktab.store.domain.Cart;
 import ir.maktab.store.domain.Customer;
 
 import java.sql.SQLException;
@@ -25,8 +26,9 @@ public class FirstMenu extends Menu implements RunnableMenu<Void> {
             switch (getChosenItem()) {
                 case 1:
                     Customer customer = ApplicationContext.customerService.login();
+                    Cart cart = ApplicationContext.cartService.findByCustomerId(customer.getId());
                     if(!Objects.isNull(customer))
-                        new CustomerMenu(customer).runMenu();
+                        new CustomerMenu(customer, cart).runMenu();
                     break;
                 case 2:
                     ApplicationContext.customerService.signUp();
