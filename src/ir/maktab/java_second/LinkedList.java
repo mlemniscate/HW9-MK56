@@ -3,8 +3,8 @@ package ir.maktab.java_second;
 import java.util.Objects;
 
 public class LinkedList<T> {
-    Node<T> head;
-    Node<T> tail;
+    private Node<T> head;
+    private Node<T> tail;
 
     boolean isEmpty() {
         return Objects.isNull(head);
@@ -20,13 +20,21 @@ public class LinkedList<T> {
         tail = node;
     }
 
-    /*T delete(int index) {
+     T delete() {
         int counter = 0;
         Node<T> previousNode = head;
-        Node<T> deleteNode = head.next;
-        Node<T> nextNode = deleteNode.next;
-        while(counter < index) {
-            if(deleteNode == tail);
+        if (previousNode.equals(tail)) {
+            tail = null;
+            head = null;
+            return previousNode.data;
+        } else {
+            while (!previousNode.next.equals(tail)) {
+                previousNode = previousNode.next;
+            }
         }
-    }*/
+        tail = previousNode;
+        return previousNode.next.data;
+    }
+
+
 }

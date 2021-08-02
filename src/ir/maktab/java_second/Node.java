@@ -1,11 +1,11 @@
 package ir.maktab.java_second;
 
-public class Node<E> {
-    E data;
-    Node next;
+public class Node<T> {
+    T data;
+    Node<T> next;
 
 
-    public Node(E data) {
+    public Node(T data) {
         this.data = data;
         next = null;
     }
