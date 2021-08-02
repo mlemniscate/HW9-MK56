@@ -1,7 +1,7 @@
-package ir.maktab.store.controler.menu;
+package ir.maktab.store.front.menu;
 
 
-import ir.maktab.store.controler.input.InputInt;
+import ir.maktab.store.front.input.InputInt;
 
 /*
 * Menu is an abstract class that help you to create your sub menus

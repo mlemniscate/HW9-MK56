@@ -1,7 +1,7 @@
 package ir.maktab.store.service.impl;
 
 import ir.maktab.store.base.service.impl.BaseServiceImpl;
-import ir.maktab.store.controler.menu.Menu;
+import ir.maktab.store.front.menu.Menu;
 import ir.maktab.store.domain.ProductCategory;
 import ir.maktab.store.repository.ProductCategoryRepository;
 import ir.maktab.store.service.ProductCategoryService;

@@ -1,4 +1,4 @@
-package ir.maktab.store.controler.input;
+package ir.maktab.store.front.input;
 
 import java.util.InputMismatchException;
 

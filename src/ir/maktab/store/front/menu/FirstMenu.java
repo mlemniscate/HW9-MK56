@@ -1,4 +1,4 @@
-package ir.maktab.store.controler.menu;
+package ir.maktab.store.front.menu;
 
 
 import ir.maktab.store.ApplicationContext;

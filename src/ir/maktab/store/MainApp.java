@@ -1,7 +1,7 @@
 package ir.maktab.store;
 
 
-import ir.maktab.store.controler.menu.FirstMenu;
+import ir.maktab.store.front.menu.FirstMenu;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

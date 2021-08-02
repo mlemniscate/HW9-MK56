@@ -1,4 +1,4 @@
-package ir.maktab.store.controler.menu;
+package ir.maktab.store.front.menu;
 
 public class CheckMenu extends Menu implements RunnableMenu<Boolean>{
     private final String message;
