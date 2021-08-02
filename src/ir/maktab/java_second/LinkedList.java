@@ -21,7 +21,6 @@ public class LinkedList<T> {
     }
 
      T delete() {
-        int counter = 0;
         Node<T> previousNode = head;
         if (previousNode.equals(tail)) {
             tail = null;
@@ -36,5 +35,12 @@ public class LinkedList<T> {
         return previousNode.next.data;
     }
 
-
+    boolean contain(T data) {
+        Node<T> node = head;
+        do {
+            if(node.data.equals(data)) return true;
+            else node = node.next;
+        } while (!Objects.isNull(node));
+        return false;
+    }
 }
