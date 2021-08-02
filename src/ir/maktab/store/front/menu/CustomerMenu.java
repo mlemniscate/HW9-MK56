@@ -3,9 +3,11 @@ package ir.maktab.store.front.menu;
 
 import ir.maktab.store.ApplicationContext;
 import ir.maktab.store.domain.Customer;
+import ir.maktab.store.domain.Product;
 import ir.maktab.store.domain.ProductCategory;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class CustomerMenu extends Menu implements RunnableMenu<Void>{
     private Customer customer;
@@ -25,8 +27,7 @@ public class CustomerMenu extends Menu implements RunnableMenu<Void>{
                     new ShowCartMenu(customer).runMenu();
                     break;*/
                 case 2:
-                    ProductCategory productCategory = ApplicationContext.productCategoryService.getCategory();
-//                    new ProductMenu(customer, ApplicationContext.productService.getProducts(category)).runMenu();
+                    chooseProduct();
                     break;
                 case 3:
                     ApplicationContext.customerService.depositBalance(customer);
@@ -39,6 +40,12 @@ public class CustomerMenu extends Menu implements RunnableMenu<Void>{
                     else break;
             }
         }
+    }
+
+    private void chooseProduct() throws SQLException {
+        ProductCategory productCategory = ApplicationContext.productCategoryService.getCategory();
+        List<Product> products = ApplicationContext.productService.getProducts(productCategory.getId());
+
     }
 }
 

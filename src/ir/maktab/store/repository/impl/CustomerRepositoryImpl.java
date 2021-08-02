@@ -61,37 +61,17 @@ public class CustomerRepositoryImpl extends BaseRepositoryImpl<Customer, Long> i
 
     @Override
     public List<Customer> findAll() {
-        List<Customer> carts = null;
+        List<Customer> customers = null;
         try (Statement statement = connection.createStatement()) {
-            carts = new ArrayList<>();
+            customers = new ArrayList<>();
             ResultSet result = statement.executeQuery(SELECT_ALL_QUERY);
             while(result.next()) {
-                carts.add(createObject(result));
+                customers.add(createObject(result));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return carts;
-    }
-
-    @Override
-    public List<Customer> findAllByIds(Collection<Long> longs) {
-        return null;
-    }
-
-    @Override
-    public Customer findByID(Long aLong) {
-        return null;
-    }
-
-    @Override
-    public Boolean deleteById(Long aLong) {
-        return null;
-    }
-
-    @Override
-    public Boolean isExist(Long aLong) {
-        return null;
+        return customers;
     }
 
     @Override
@@ -118,4 +98,25 @@ public class CustomerRepositoryImpl extends BaseRepositoryImpl<Customer, Long> i
                 result.getDouble("balance")
         );
     }
+
+    @Override
+    public List<Customer> findAllByIds(Collection<Long> longs) {
+        return null;
+    }
+
+    @Override
+    public Customer findByID(Long aLong) {
+        return null;
+    }
+
+    @Override
+    public Boolean deleteById(Long aLong) {
+        return null;
+    }
+
+    @Override
+    public Boolean isExist(Long aLong) {
+        return null;
+    }
+
 }
