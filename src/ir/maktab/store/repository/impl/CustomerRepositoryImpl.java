@@ -1,6 +1,7 @@
 package ir.maktab.store.repository.impl;
 
 import ir.maktab.store.base.repository.impl.BaseRepositoryImpl;
+import ir.maktab.store.domain.Cart;
 import ir.maktab.store.domain.Customer;
 import ir.maktab.store.repository.CustomerRepository;
 
@@ -18,6 +19,7 @@ public class CustomerRepositoryImpl extends BaseRepositoryImpl<Customer, Long> i
     private static final String UPDATE_QUERY = "UPDATE customers " +
             "SET first_name = ?, last_name = ?, username = ?, password = ?, balance = ? " +
             "WHERE id = ? && is_deleted = 0";
+    private static final String LAST_INSERTED_ID = "SELECT LAST_INSERT_ID() AS id ";
 
     private final Connection connection;
 
@@ -28,18 +30,35 @@ public class CustomerRepositoryImpl extends BaseRepositoryImpl<Customer, Long> i
 
     @Override
     public Boolean save(Customer customer) {
-        int insertResult = 0;
+        boolean isInserted = false;
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY);) {
+            connection.setAutoCommit(false);
             statement.setString(1, customer.getFirstName());
             statement.setString(2, customer.getLastName());
             statement.setString(3, customer.getUsername());
             statement.setString(4, customer.getPassword());
             statement.setDouble(5, customer.getBalance());
-            insertResult = statement.executeUpdate();
+            isInserted = statement.executeUpdate() > 0;
+            setLastId(customer);
+            isInserted = new CartRepositoryImpl(connection).save(createCart(customer));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return insertResult > 0;
+        return isInserted;
+    }
+
+    private void setLastId(Customer customer) throws SQLException {
+        Statement statementLastId = connection.createStatement();
+        ResultSet resultSet = statementLastId.executeQuery(LAST_INSERTED_ID);
+        if(resultSet.next()) customer.setId(resultSet.getLong("id"));
+    }
+
+    private Cart createCart(Customer customer) {
+        return new Cart(
+                customer.getId(),
+                new Date(System.currentTimeMillis()),
+                new Date(System.currentTimeMillis())
+        );
     }
 
     @Override
@@ -65,7 +84,7 @@ public class CustomerRepositoryImpl extends BaseRepositoryImpl<Customer, Long> i
         try (Statement statement = connection.createStatement()) {
             customers = new ArrayList<>();
             ResultSet result = statement.executeQuery(SELECT_ALL_QUERY);
-            while(result.next()) {
+            while (result.next()) {
                 customers.add(createObject(result));
             }
         } catch (SQLException e) {
@@ -80,7 +99,7 @@ public class CustomerRepositoryImpl extends BaseRepositoryImpl<Customer, Long> i
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet result = statement.executeQuery();
-            if(result.next()) return createObject(result);
+            if (result.next()) return createObject(result);
         } catch (SQLException e) {
             System.out.println("You have a problem in your customer select user pass query.");
             e.printStackTrace();
