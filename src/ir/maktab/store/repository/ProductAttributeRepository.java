@@ -6,5 +6,5 @@ import ir.maktab.store.domain.ProductAttribute;
 import java.util.List;
 
 public interface ProductAttributeRepository extends BaseRepository<ProductAttribute, Long> {
-    List<ProductAttribute> findAllByProductId();
+    List<ProductAttribute> findAllByProductId(Long productId);
 }
