@@ -26,7 +26,7 @@ public class CustomerMenu extends Menu implements RunnableMenu<Void>{
                     break;*/
                 case 2:
                     Product product = ApplicationContext.productService.getProduct();
-                    /*ApplicationContext.cartService.addProductToCart();*/
+                    ApplicationContext.cartService.addProductToCart(product);
                     break;
                 case 3:
                     ApplicationContext.customerService.depositBalance(customer);

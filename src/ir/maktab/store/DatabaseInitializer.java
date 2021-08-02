@@ -62,6 +62,7 @@ public class DatabaseInitializer {
             "  `created_date` DATE NOT NULL,\n" +
             "  `last_updated_date` DATE NOT NULL,\n" +
             "  `is_deleted` TINYINT(1) NULL DEFAULT 0,\n" +
+            "  `product_limit` INT NULL DEFAULT 5,\n" +
             "  PRIMARY KEY (`id`),\n" +
             "  INDEX `fk_carts_customers_idx` (`customers_id` ASC) VISIBLE,\n" +
             "  CONSTRAINT `fk_carts_customers`\n" +
