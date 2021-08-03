@@ -26,9 +26,10 @@ public class FirstMenu extends Menu implements RunnableMenu<Void> {
             switch (getChosenItem()) {
                 case 1:
                     Customer customer = ApplicationContext.customerService.login();
-                    Cart cart = ApplicationContext.cartService.findByCustomerId(customer.getId());
-                    if(!Objects.isNull(customer))
+                    if(!Objects.isNull(customer)) {
+                        Cart cart = ApplicationContext.cartService.findByCustomerId(customer.getId());
                         new CustomerMenu(customer, cart).runMenu();
+                    }
                     break;
                 case 2:
                     ApplicationContext.customerService.signUp();

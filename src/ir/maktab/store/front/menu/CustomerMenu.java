@@ -10,8 +10,8 @@ import ir.maktab.store.front.input.InputInt;
 import java.sql.SQLException;
 
 public class CustomerMenu extends Menu implements RunnableMenu<Void>{
-    private Customer customer;
-    private Cart cart;
+    private final Customer customer;
+    private final Cart cart;
 
     public CustomerMenu(Customer customer, Cart cart) {
         super(new String[]{"Show Cart and Payment", "Add Product to Cart", "Deposit Balance", "Edit Profile and Info", "Log Out"});

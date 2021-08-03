@@ -31,7 +31,7 @@ public class DatabaseInitializer {
 
     private static final String CREATE_PRODUCTS_PURCHASED_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS `store_app`.`products_purchased` (\n" +
             "  `id` BIGINT NOT NULL AUTO_INCREMENT,\n" +
-            "  `product_name` VARCHAR(45) NOT NULL,\n" +
+            "  `product_name` VARCHAR(255) NOT NULL,\n" +
             "  `price` DOUBLE NOT NULL,\n" +
             "  `quantity` INT NOT NULL,\n" +
             "  `orders_id` BIGINT NOT NULL,\n" +
@@ -47,10 +47,10 @@ public class DatabaseInitializer {
 
     private static final String CREATE_CUSTOMERS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS `store_app`.`customers` (\n" +
             "  `id` BIGINT NOT NULL AUTO_INCREMENT,\n" +
-            "  `first_name` VARCHAR(45) NOT NULL,\n" +
-            "  `last_name` VARCHAR(45) NOT NULL,\n" +
-            "  `username` VARCHAR(45) NOT NULL,\n" +
-            "  `password` VARCHAR(45) NOT NULL,\n" +
+            "  `first_name` VARCHAR(255) NOT NULL,\n" +
+            "  `last_name` VARCHAR(255) NOT NULL,\n" +
+            "  `username` VARCHAR(255) NOT NULL,\n" +
+            "  `password` VARCHAR(255) NOT NULL,\n" +
             "  `balance` DOUBLE NOT NULL,\n" +
             "  `is_deleted` TINYINT(1) NULL DEFAULT 0,\n" +
             "  PRIMARY KEY (`id`))\n" +
@@ -76,15 +76,15 @@ public class DatabaseInitializer {
     private static final String CREATE_CATEGORIES_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS `store_app`.`categories` (\n" +
             "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `parent_id` INT NOT NULL,\n" +
-            "  `category_name` VARCHAR(45) NOT NULL,\n" +
+            "  `category_name` VARCHAR(255) NOT NULL,\n" +
             "  `is_deleted` TINYINT(1) NULL DEFAULT 0,\n" +
             "  PRIMARY KEY (`id`))\n" +
             "ENGINE = InnoDB";
 
     private static final String CREATE_SHIPPERS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS `store_app`.`shippers` (\n" +
             "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-            "  `shipper_name` VARCHAR(45) NULL,\n" +
-            "  `phone_number` VARCHAR(45) NULL,\n" +
+            "  `shipper_name` VARCHAR(255) NULL,\n" +
+            "  `phone_number` VARCHAR(255) NULL,\n" +
             "  `price` DOUBLE NULL,\n" +
             "  `delivery_day` INT NULL,\n" +
             "  `is_deleted` TINYINT(1) NULL DEFAULT 0,\n" +
@@ -94,7 +94,7 @@ public class DatabaseInitializer {
     private static final String CREATE_PRODUCTS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS `store_app`.`products` (\n" +
             "  `id` BIGINT NOT NULL AUTO_INCREMENT,\n" +
             "  `categories_id` INT NOT NULL,\n" +
-            "  `product_name` VARCHAR(45) NOT NULL,\n" +
+            "  `product_name` VARCHAR(255) NOT NULL,\n" +
             "  `price` DOUBLE NOT NULL,\n" +
             "  `stock` INT NOT NULL,\n" +
             "  `is_deleted` TINYINT(1) NULL DEFAULT 0,\n" +
@@ -109,14 +109,14 @@ public class DatabaseInitializer {
 
     private static final String CREATE_PRODUCTS_ATTRIBUTES_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS `store_app`.`product_attributes` (\n" +
             "  `id` BIGINT NOT NULL AUTO_INCREMENT,\n" +
-            "  `attribute_name` VARCHAR(45) NOT NULL,\n" +
+            "  `attribute_name` VARCHAR(255) NOT NULL,\n" +
             "  `is_deleted` TINYINT(1) NULL DEFAULT 0,\n" +
             "  PRIMARY KEY (`id`))\n" +
             "ENGINE = InnoDB";
 
     private static final String CREATE_PRODUCTS_PURCHASED_ATTRIBUTES_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS `store_app`.`products_purchased_attributes` (\n" +
             "  `id` BIGINT NOT NULL AUTO_INCREMENT,\n" +
-            "  `attribute_name` VARCHAR(45) NOT NULL,\n" +
+            "  `attribute_name` VARCHAR(255) NOT NULL,\n" +
             "  `is_deleted` TINYINT(1) NULL DEFAULT 0,\n" +
             "  PRIMARY KEY (`id`))\n" +
             "ENGINE = InnoDB";
@@ -124,7 +124,7 @@ public class DatabaseInitializer {
     private static final String CREATE_PRODUCTS_HAS_ATTRIBUTES_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS `store_app`.`products_has_attributes` (\n" +
             "  `products_id` BIGINT NOT NULL,\n" +
             "  `product_attributes_id` BIGINT NOT NULL,\n" +
-            "  `attribute_value` VARCHAR(45) NOT NULL,\n" +
+            "  `attribute_value` VARCHAR(255) NOT NULL,\n" +
             "  `is_deleted` TINYINT(1) NULL DEFAULT 0,\n" +
             "  PRIMARY KEY (`products_id`, `product_attributes_id`),\n" +
             "  INDEX `fk_products_has_product_atributes_product_atributes1_idx` (`product_attributes_id` ASC) VISIBLE,\n" +
@@ -144,7 +144,7 @@ public class DatabaseInitializer {
     private static final String CREATE_PRODUCTS_PURCHASED_HAS_ATTRIBUTES_PURCHASED_ATTRIBUTES_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS `store_app`.`products_purchased_has_products_purchased_attributes` (\n" +
             "  `products_purchased_attributes_id` BIGINT NOT NULL,\n" +
             "  `products_purchased_id` BIGINT NOT NULL,\n" +
-            "  `attribute_value` VARCHAR(45) NOT NULL,\n" +
+            "  `attribute_value` VARCHAR(255) NOT NULL,\n" +
             "  `is_deleted` TINYINT(1) NULL DEFAULT 0,\n" +
             "  PRIMARY KEY (`products_purchased_attributes_id`, `products_purchased_id`),\n" +
             "  INDEX `fk_products_purchased_atributes_has_products_purchased_prod_idx` (`products_purchased_id` ASC) VISIBLE,\n" +

@@ -19,9 +19,10 @@ public class CartRepositoryImpl extends BaseRepositoryImpl<Cart, Long> implement
     private static final String INSERT_QUERY = "INSERT INTO carts (customers_id, created_date, last_updated_date)" +
             "VALUES (?, ?, ?)";
     private static final String SELECT_BY_CUSTOMER_ID = "SELECT * FROM store_app.carts c\n" +
-            "JOIN store_app.carts_has_products cp ON c.id = cp.carts_id\n" +
-            "JOIN store_app.products p ON p.id = cp.products_id\n" +
             "WHERE c.customers_id = ?";
+    private static final String SELECT_CART_HAS_PRODUCTS_QUERY = "SELECT * FROM products p\n" +
+            "JOIN carts_has_products c ON p.id = c.products_id\n" +
+            "WHERE carts_id = ?";
 
     private final Connection connection;
 
@@ -47,15 +48,24 @@ public class CartRepositoryImpl extends BaseRepositoryImpl<Cart, Long> implement
 
     @Override
     public Cart findByCustomerId(Long customerId) {
-        int insertResult = 0;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_CUSTOMER_ID);) {
             statement.setLong(1, customerId);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) return createCart(resultSet);
+            if (resultSet.next()) return createCart(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void saveProduct(Long cartId, int quantity) {
+
+    }
+
+    @Override
+    public void updateProduct(Long cartId, Integer quantity) {
+
     }
 
     private Cart createCart(ResultSet resultSet) throws SQLException {
@@ -63,14 +73,25 @@ public class CartRepositoryImpl extends BaseRepositoryImpl<Cart, Long> implement
                 resultSet.getLong("id"),
                 resultSet.getDate("created_date"),
                 resultSet.getDate("last_updated_date"),
-                createProductMap(resultSet),
+                findCartHasProducts(resultSet.getLong("id")),
                 resultSet.getInt("product_limit")
         );
     }
 
+    private Map<Product, Integer> findCartHasProducts(Long cartId) {
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_CART_HAS_PRODUCTS_QUERY);) {
+            statement.setLong(1, cartId);
+            ResultSet resultSet = statement.executeQuery();
+            return createProductMap(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private Map<Product, Integer> createProductMap(ResultSet resultSet) throws SQLException {
         Map<Product, Integer> products = new HashMap<>();
-        do{
+        while (resultSet.next()) {
             products.put(new Product(
                     resultSet.getLong("products_id"),
                     resultSet.getString("product_name"),
@@ -79,7 +100,7 @@ public class CartRepositoryImpl extends BaseRepositoryImpl<Cart, Long> implement
                     resultSet.getInt("categories_id"),
                     resultSet.getInt("stock")
             ), resultSet.getInt("quantity"));
-        } while (resultSet.next());
+        }
         return products;
     }
 

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ProductRepositoryImpl extends BaseProductRepositoryImpl<Product> implements ProductRepository {
 
-    private static final String SELECT_ALL_BY_CATEGORY_QUERY = "SELECT * FROM products WHERE category_id = ?";
+    private static final String SELECT_ALL_BY_CATEGORY_QUERY = "SELECT * FROM products WHERE categories_id = ?";
 
     private Connection connection;
 
@@ -71,7 +71,7 @@ public class ProductRepositoryImpl extends BaseProductRepositoryImpl<Product> im
             System.out.println("You have a problem in your customer select user pass query.");
             e.printStackTrace();
         }
-        return null;
+        return products;
     }
 
     public Product createObject(ResultSet result) throws SQLException {
@@ -80,7 +80,7 @@ public class ProductRepositoryImpl extends BaseProductRepositoryImpl<Product> im
                 result.getString("product_name"),
                 result.getDouble("price"),
                 new ProductAttributeRepositoryImpl(connection).findAllByProductId(result.getLong("id")),
-                result.getInt("category_id"),
+                result.getInt("categories_id"),
                 result.getInt("stock")
         );
     }
