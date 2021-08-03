@@ -4,10 +4,10 @@ import ir.maktab.store.base.repository.BaseRepository;
 import ir.maktab.store.domain.Cart;
 
 public interface CartRepository extends BaseRepository<Cart, Long> {
+
     Cart findByCustomerId(Long customerId);
 
+    boolean saveProduct(Long cartId, int quantity, Long productId);
 
-    void saveProduct(Long cartId, int quantity);
-
-    void updateProduct(Long cartId, Integer quantity);
+    boolean updateProduct(Long cartId, Long productId, Integer quantity);
 }

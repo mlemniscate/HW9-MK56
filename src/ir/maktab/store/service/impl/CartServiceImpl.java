@@ -6,6 +6,7 @@ import ir.maktab.store.domain.Product;
 import ir.maktab.store.repository.CartRepository;
 import ir.maktab.store.service.CartService;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class CartServiceImpl extends BaseServiceImpl<Cart, Long, CartRepository> implements CartService {
@@ -19,25 +20,26 @@ public class CartServiceImpl extends BaseServiceImpl<Cart, Long, CartRepository>
 
     @Override
     public void addProductToCart(Product product, Cart cart, int quantity) {
-        if(hasSameProduct(product, cart)){
-            cart.getProducts().put(product, cart.getProducts().get(product) + quantity);
-            repository.updateProduct(cart.getId(), cart.getProducts().get(product));
-        }else if(cart.getProducts().size() < cart.getProductLimit()) {
-            cart.getProducts().put(product, quantity);
-            repository.saveProduct(cart.getId(), quantity);
+        Map<Product, Integer> products = cart.getProducts();
+        Product equalProduct = hasSameProduct(product, cart);
+        if(!Objects.isNull(equalProduct)){
+            products.put(product, products.get(equalProduct) + quantity);
+            repository.updateProduct(cart.getId(),product.getId() , products.get(product));
+        }else if(products.size() < cart.getProductLimit()) {
+            products.put(product, quantity);
+            repository.saveProduct(cart.getId(), quantity, product.getId());
         } else {
             System.out.println("Your cart is full!");
         }
-        System.out.println(cart.getProducts().get(product));
     }
 
-    private boolean hasSameProduct(Product product, Cart cart) {
+    private Product hasSameProduct(Product product, Cart cart) {
         if (!Objects.isNull(cart.getProducts())) {
             for (Product productKey : cart.getProducts().keySet()) {
-                if (productKey.getId().equals(product.getId())) return true;
+                if (productKey.getId().equals(product.getId())) return productKey;
             }
         }
-        return false;
+        return null;
     }
 
     @Override
