@@ -18,7 +18,7 @@ public class CustomerRepositoryImpl extends BaseRepositoryImpl<Customer, Long> i
     private static final String SELECT_ALL_QUERY = "SELECT * FROM customers WHERE is_deleted = 0";
     private static final String UPDATE_QUERY = "UPDATE customers " +
             "SET first_name = ?, last_name = ?, username = ?, password = ?, balance = ? " +
-            "WHERE id = ? && is_deleted = 0";
+            "WHERE id = ? ";
     private static final String LAST_INSERTED_ID = "SELECT LAST_INSERT_ID() AS id ";
 
     private final Connection connection;

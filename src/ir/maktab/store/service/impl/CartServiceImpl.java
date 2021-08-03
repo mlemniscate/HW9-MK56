@@ -51,16 +51,14 @@ public class CartServiceImpl extends BaseServiceImpl<Cart, Long, CartRepository>
 
     @Override
     public void showCartProducts(Cart cart) {
-        double totalPrice = 0;
         int productNumber = 0;
         for (Map.Entry<Product, Integer> entry : cart.getProducts().entrySet()) {
             System.out.println("\n\n");
             System.out.println("#" + ++productNumber);
             System.out.print(entry.getKey().toString());
             System.out.println("Quantity: " + entry.getValue() + "\n");
-            totalPrice += entry.getKey().getPrice();
         }
-        System.out.printf("Your cart total price is: %.2f$%n%n", totalPrice);
+        System.out.printf("Your cart total price is: %.2f$%n%n", calculateCartTotalPrice(cart));
     }
 
     @Override
@@ -71,6 +69,20 @@ public class CartServiceImpl extends BaseServiceImpl<Cart, Long, CartRepository>
         repository.deleteProduct(new CartProductChangeDTO(cart.getId(), product.getId(), products.get(product)));
         products.remove(product);
         showCartProducts(cart);
+    }
+
+    @Override
+    public double calculateCartTotalPrice(Cart cart) {
+        double totalPrice = 0;
+        for (Map.Entry<Product, Integer> entry : cart.getProducts().entrySet()) {
+            totalPrice += entry.getKey().getPrice();
+        }
+        return totalPrice;
+    }
+
+    @Override
+    public void deleteCartProduct(CartProductChangeDTO cartProductChangeDTO) {
+        repository.deleteProduct(cartProductChangeDTO);
     }
 
     private static int enterProductNumber(int size) {

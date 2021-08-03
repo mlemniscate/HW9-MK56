@@ -26,7 +26,7 @@ public class CustomerMenu extends Menu implements RunnableMenu<Void>{
             showMenu();
             switch (getChosenItem()) {
                 case 1:
-                    new ShowCartMenu(cart).runMenu();
+                    new ShowCartMenu(cart, customer).runMenu();
                     break;
                 case 2:
                     Product product = ApplicationContext.productService.getProduct();

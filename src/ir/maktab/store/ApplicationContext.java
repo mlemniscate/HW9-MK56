@@ -19,7 +19,7 @@ public class ApplicationContext {
 
     public static final ProductCategoryServiceImpl productCategoryService = new ProductCategoryServiceImpl(new ProductCategoryRepositoryImpl(MainApp.getConnection()));
 
-    public static final ProductPurchasedServiceImpl productPurchasedService = new ProductPurchasedServiceImpl(new ProductPurchasedRepositoryImpl(MainApp.getConnection()));
+    public static final PurchasedProductServiceImpl purchasedProductService = new PurchasedProductServiceImpl(new PurchasedProductRepositoryImpl(MainApp.getConnection()));
 
     public static final ShipperServiceImpl shipperService = new ShipperServiceImpl(new ShipperRepositoryImpl(MainApp.getConnection()));
 

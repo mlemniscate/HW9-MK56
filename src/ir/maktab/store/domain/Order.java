@@ -11,6 +11,12 @@ public class Order extends BaseEntity<Long> {
     private Date deliveryDate;
     private Shipper shipper;
 
+    public Order(Long customerId, Date orderDate, Shipper shipper) {
+        this.customerId = customerId;
+        this.orderDate = orderDate;
+        this.shipper = shipper;
+    }
+
     public Order(Long customerId, Date orderDate, Date shippingDate, Date deliveryDate, Shipper shipper) {
         this(0L, customerId, orderDate, shippingDate, deliveryDate, shipper);
     }

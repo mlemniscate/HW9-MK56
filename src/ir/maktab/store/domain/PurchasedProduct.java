@@ -4,25 +4,25 @@ import ir.maktab.store.base.domain.BaseProduct;
 
 import java.util.List;
 
-public class ProductPurchased extends BaseProduct<ProductPurchased> {
-    private Integer orderId;
+public class PurchasedProduct extends BaseProduct<PurchasedProduct> {
+    private Long orderId;
     private Integer quantity;
 
-    public ProductPurchased(String name, double price, List<ProductAttribute> attributes, Integer orderId, Integer quantity) {
+    public PurchasedProduct(String name, double price, List<ProductAttribute> attributes, Long orderId, Integer quantity) {
         this(0L, name, price, attributes, orderId, quantity);
     }
 
-    public ProductPurchased(Long id, String name, double price, List<ProductAttribute> attributes, Integer orderId, Integer quantity) {
+    public PurchasedProduct(Long id, String name, double price, List<ProductAttribute> attributes, Long orderId, Integer quantity) {
         super(id, name, price, attributes);
         this.orderId = orderId;
         this.quantity = quantity;
     }
 
-    public Integer getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 

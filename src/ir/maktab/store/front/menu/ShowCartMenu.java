@@ -3,15 +3,18 @@ package ir.maktab.store.front.menu;
 
 import ir.maktab.store.ApplicationContext;
 import ir.maktab.store.domain.Cart;
+import ir.maktab.store.domain.Customer;
 
 import java.sql.SQLException;
 
 public class ShowCartMenu extends Menu implements RunnableMenu<Void>{
     private final Cart cart;
+    private final Customer customer;
 
-    public ShowCartMenu(Cart cart) {
+    public ShowCartMenu(Cart cart, Customer customer) {
         super(new String[]{"Delete Item", "Final Payment", "Back"});
         this.cart = cart;
+        this.customer = customer;
         ApplicationContext.cartService.showCartProducts(cart);
     }
 
@@ -24,7 +27,7 @@ public class ShowCartMenu extends Menu implements RunnableMenu<Void>{
                     ApplicationContext.cartService.deleteItem(cart);
                     break;
                 case 2:
-                    ApplicationContext.orderService.orderCart(cart);
+                    ApplicationContext.orderService.orderCart(cart, customer);
                     System.out.println("Your orders ordered successfully.");
                     return null;
                 case 3:
@@ -32,38 +35,4 @@ public class ShowCartMenu extends Menu implements RunnableMenu<Void>{
             }
         }
     }
-
-    /*private void payment() throws SQLException {
-        double paymentPrice = TakenProductService.calculateTakenProductsPrice(cart);
-        if (cart.getBalance() > paymentPrice) {
-            Shipper shipper = ShipperService.chooseShipper();
-            paymentPrice += shipper.getPrice();
-            if(cart.getBalance() > paymentPrice) {
-                updateBalance(paymentPrice);
-                Order order = new Order(cart, new Timestamp(new Date().getTime()), shipper);
-                OrderService.addOrder(order);
-                addOrderDetails(cart, OrderService.getLastOrder());
-                cart.getTakenProducts().clear();
-            } else {
-                System.out.println("Your balance not enough for this payment.\nPlease deposit your balance and come back again.");
-            }
-        } else {
-            System.out.println("Your balance not enough for this payment.\nPlease deposit your balance and come back again.");
-        }
-    }
-
-    private void addOrderDetails(Cart customer, Order order) throws SQLException {
-        for (int i = 0; i < customer.getTakenProducts().size(); i++) {
-            OrderDetailService.addOrderDetail(new OrderDetail(
-                    order,
-                    customer.getTakenProducts().get(i).getProduct(),
-                    customer.getTakenProducts().get(i).getQuantity()
-            ));
-        }
-    }
-
-    private void updateBalance(double paymentPrice) throws SQLException {
-        cart.setBalance(cart.getBalance() - paymentPrice);
-        CustomerService.update(cart);
-    }*/
 }
