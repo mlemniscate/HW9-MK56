@@ -16,7 +16,7 @@ public class ProductAttributeRepositoryImpl extends BaseRepositoryImpl<ProductAt
 
     private static final String SELECT_PRODUCT_HAS_ATTRIBUTES = "SELECT * FROM store_app.products_has_attributes p\n" +
             "JOIN store_app.product_attributes a ON p.product_attributes_id = a.id\n" +
-            "WHERE products_id = ?";
+            "WHERE products_id = ? && a.is_deleted = 0 && p.is_deleted = 0";
 
     private final Connection connection;
 

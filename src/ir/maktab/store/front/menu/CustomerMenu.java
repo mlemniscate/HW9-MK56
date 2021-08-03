@@ -25,9 +25,9 @@ public class CustomerMenu extends Menu implements RunnableMenu<Void>{
         while (true) {
             showMenu();
             switch (getChosenItem()) {
-                /*case 1:
-                    new ShowCartMenu(customer).runMenu();
-                    break;*/
+                case 1:
+                    new ShowCartMenu(cart).runMenu();
+                    break;
                 case 2:
                     Product product = ApplicationContext.productService.getProduct();
                     int quantity = new InputInt("How much do you want?", product.getStock(), 1, null).getIntInput();

@@ -21,7 +21,7 @@ public class Product extends BaseProduct<Product> {
     @Override
     public String toString() {
         return String.format("Product Name: %s%n" +
-                "Price: %s%n%s%n%n",
+                "Price: %.2f$%n%s",
                 getName(),getPrice(),attributesString()
         );
     }

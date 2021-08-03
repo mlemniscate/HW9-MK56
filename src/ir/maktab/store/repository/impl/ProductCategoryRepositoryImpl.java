@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ProductCategoryRepositoryImpl extends BaseRepositoryImpl<ProductCategory, Integer> implements ProductCategoryRepository {
 
-    private static final String SELECT_ALL_QUERY = "SELECT * FROM categories";
+    private static final String SELECT_ALL_QUERY = "SELECT * FROM categories WHERE is_deleted = 0";
 
     private final Connection connection;
 

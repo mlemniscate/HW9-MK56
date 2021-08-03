@@ -1,6 +1,7 @@
 package ir.maktab.store.service.impl;
 
 import ir.maktab.store.base.service.impl.BaseServiceImpl;
+import ir.maktab.store.domain.Cart;
 import ir.maktab.store.domain.Order;
 import ir.maktab.store.repository.OrderRepository;
 
@@ -8,5 +9,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long, OrderReposito
 
     public OrderServiceImpl(OrderRepository repository) {
         super(repository);
+    }
+
+    public void orderCart(Cart cart) {
     }
 }

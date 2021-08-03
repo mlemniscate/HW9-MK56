@@ -1,17 +1,18 @@
 package ir.maktab.store.front.menu;
 
 
+import ir.maktab.store.ApplicationContext;
 import ir.maktab.store.domain.Cart;
 
 import java.sql.SQLException;
 
 public class ShowCartMenu extends Menu implements RunnableMenu<Void>{
-    private Cart cart;
+    private final Cart cart;
 
     public ShowCartMenu(Cart cart) {
         super(new String[]{"Delete Item", "Final Payment", "Back"});
         this.cart = cart;
-//        ApplicationContext.cartService.showTakenProducts(cart);
+        ApplicationContext.cartService.showCartProducts(cart);
     }
 
     @Override
@@ -20,10 +21,10 @@ public class ShowCartMenu extends Menu implements RunnableMenu<Void>{
             showMenu();
             switch (getChosenItem()) {
                 case 1:
-//                    ApplicationContext.cartService.deleteItem(cart);
+                    ApplicationContext.cartService.deleteItem(cart);
                     break;
                 case 2:
-//                    payment();
+                    ApplicationContext.orderService.orderCart(cart);
                     System.out.println("Your orders ordered successfully.");
                     return null;
                 case 3:

@@ -4,6 +4,7 @@ import ir.maktab.store.base.repository.impl.BaseRepositoryImpl;
 import ir.maktab.store.domain.Cart;
 import ir.maktab.store.domain.Product;
 import ir.maktab.store.repository.CartRepository;
+import ir.maktab.store.service.dto.CartProductChangeDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,13 +20,13 @@ public class CartRepositoryImpl extends BaseRepositoryImpl<Cart, Long> implement
     private static final String INSERT_QUERY = "INSERT INTO carts (customers_id, created_date, last_updated_date)" +
             "VALUES (?, ?, ?)";
     private static final String SELECT_BY_CUSTOMER_ID = "SELECT * FROM store_app.carts c\n" +
-            "WHERE c.customers_id = ?";
+            "WHERE c.customers_id = ? && is_deleted = 0";
     private static final String SELECT_CART_HAS_PRODUCTS_QUERY = "SELECT * FROM products p\n" +
             "JOIN carts_has_products c ON p.id = c.products_id\n" +
-            "WHERE carts_id = ?";
+            "WHERE carts_id = ? && c.is_deleted = 0";
     private static final String INSERT_PRODUCT_TO_CART_QUERY = "INSERT INTO carts_has_products(products_id, carts_id, quantity)" +
             "VALUES(?, ?, ?)";
-    private static final String UPDATE_PRODUCT_IN_CART_QUERY = "UPDATE carts_has_products SET quantity = ? " +
+    private static final String UPDATE_PRODUCT_IN_CART_QUERY = "UPDATE carts_has_products SET quantity = ?, is_deleted = ? " +
             "WHERE products_id = ? && carts_id = ?";
 
     private final Connection connection;
@@ -63,12 +64,26 @@ public class CartRepositoryImpl extends BaseRepositoryImpl<Cart, Long> implement
     }
 
     @Override
-    public boolean saveProduct(Long cartId, int quantity, Long productId) {
+    public boolean saveProduct(CartProductChangeDTO cartProductChangeDTO) {
         int insertResult = 0;
         try (PreparedStatement statement = connection.prepareStatement(INSERT_PRODUCT_TO_CART_QUERY);) {
-            statement.setLong(1, productId);
-            statement.setLong(2, cartId);
-            statement.setInt(3, quantity);
+            statement.setLong(1, cartProductChangeDTO.getProductId());
+            statement.setLong(2, cartProductChangeDTO.getCartId());
+            statement.setInt(3, cartProductChangeDTO.getQuantity());
+            insertResult = statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return insertResult > 0;
+    }
+
+    public boolean updateProduct(CartProductChangeDTO cartProductChangeDTO, int isDeleted) {
+        int insertResult = 0;
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_PRODUCT_IN_CART_QUERY)) {
+            statement.setInt(1, cartProductChangeDTO.getQuantity());
+            statement.setInt(2, isDeleted);
+            statement.setLong(3, cartProductChangeDTO.getProductId());
+            statement.setLong(4, cartProductChangeDTO.getCartId());
             insertResult = statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,17 +92,13 @@ public class CartRepositoryImpl extends BaseRepositoryImpl<Cart, Long> implement
     }
 
     @Override
-    public boolean updateProduct(Long cartId, Long productId, Integer quantity) {
-        int insertResult = 0;
-        try (PreparedStatement statement = connection.prepareStatement(UPDATE_PRODUCT_IN_CART_QUERY);) {
-            statement.setInt(1, quantity);
-            statement.setLong(2, productId);
-            statement.setLong(3, cartId);
-            insertResult = statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return insertResult > 0;
+    public boolean updateProduct(CartProductChangeDTO cartProductChangeDTO) {
+        return updateProduct(cartProductChangeDTO, 0);
+    }
+
+    @Override
+    public boolean deleteProduct(CartProductChangeDTO cartProductChangeDTO) {
+        return updateProduct(cartProductChangeDTO, 1);
     }
 
     private Cart createCart(ResultSet resultSet) throws SQLException {
