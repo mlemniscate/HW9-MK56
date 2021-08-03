@@ -5,5 +5,5 @@ import ir.maktab.store.domain.ProductAttribute;
 import ir.maktab.store.domain.PurchasedProduct;
 
 public interface PurchasedProductRepository extends BaseProductRepository<PurchasedProduct> {
-    void saveAttribute(ProductAttribute attribute);
+    boolean saveAttribute(ProductAttribute attribute);
 }
