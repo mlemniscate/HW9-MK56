@@ -16,6 +16,11 @@ public class ProductAttribute extends BaseEntity<Long> {
         this.attributeValue = attributeValue;
     }
 
+    @Override
+    public String toString() {
+        return attributeName + ": " + attributeValue;
+    }
+
     public String getAttributeName() {
         return attributeName;
     }

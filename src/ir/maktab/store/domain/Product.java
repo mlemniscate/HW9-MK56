@@ -21,9 +21,17 @@ public class Product extends BaseProduct<Product> {
     @Override
     public String toString() {
         return String.format("Product Name: %s%n" +
-                "Price: %s%n%n",
-                getName(),getPrice()
+                "Price: %s%n%s%n%n",
+                getName(),getPrice(),attributesString()
         );
+    }
+
+    private String attributesString() {
+        StringBuilder attributesString = new StringBuilder();
+        for (ProductAttribute attribute: super.getAttributes()) {
+            attributesString.append(attribute.toString()).append("\n");
+        }
+        return attributesString.toString();
     }
 
     public Integer getCategoryId() {
