@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class OrderServiceImpl extends BaseServiceImpl<Order, Long, OrderRepository> implements OrderService{
 
@@ -25,23 +26,37 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long, OrderReposito
 
     private void payOff(Cart cart, Customer customer) throws SQLException {
         double paymentPrice = ApplicationContext.cartService.calculateCartTotalPrice(cart);
-        if (customer.getBalance() > paymentPrice) {
-            Shipper shipper = ApplicationContext.shipperService.chooseShipper();
-            paymentPrice += shipper.getPrice();
-            if(customer.getBalance() > paymentPrice) {
-                updateBalance(paymentPrice, customer);
-                Order order = new Order(
-                        customer.getId(),
-                        new Date(System.currentTimeMillis()),
-                        shipper);
-                save(order);
-                addOrderDetails(cart, order);
+        Product lessStockProduct = ApplicationContext.productService.checkStocks(cart);
+        if (Objects.isNull(lessStockProduct)) {
+            if (customer.getBalance() > paymentPrice) {
+                Shipper shipper = ApplicationContext.shipperService.chooseShipper();
+                paymentPrice += shipper.getPrice();
+                if(customer.getBalance() > paymentPrice) {
+                    doOrderUpdates(cart, customer, paymentPrice, shipper);
+                    System.out.println("Your orders ordered successfully.");
+                } else {
+                    System.out.println("Your balance not enough for this payment.\nPlease deposit your balance and come back again.");
+                }
             } else {
                 System.out.println("Your balance not enough for this payment.\nPlease deposit your balance and come back again.");
             }
         } else {
-            System.out.println("Your balance not enough for this payment.\nPlease deposit your balance and come back again.");
+            System.out.printf("We have not enough stock from bellow product. " +
+                            "Please delete and order enough amount of that.%n" +
+                            "%s%n" +
+                            "Stock: %d%n%n",
+                    lessStockProduct, lessStockProduct.getStock());
         }
+    }
+
+    private void doOrderUpdates(Cart cart, Customer customer, double paymentPrice, Shipper shipper) throws SQLException {
+        updateBalance(paymentPrice, customer);
+        Order order = new Order(
+                customer.getId(),
+                new Date(System.currentTimeMillis()),
+                shipper);
+        save(order);
+        addOrderDetails(cart, order);
     }
 
     private void updateBalance(double paymentPrice, Customer customer) {

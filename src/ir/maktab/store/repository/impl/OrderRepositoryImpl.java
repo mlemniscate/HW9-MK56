@@ -4,16 +4,17 @@ import ir.maktab.store.base.repository.impl.BaseRepositoryImpl;
 import ir.maktab.store.domain.Order;
 import ir.maktab.store.repository.OrderRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Collection;
 import java.util.List;
 
 public class OrderRepositoryImpl extends BaseRepositoryImpl<Order, Long> implements OrderRepository {
 
-    private static final String INSERT_QUERY = "INSERT INTO customers (customers_id, order_date, shippers_id)" +
+    private static final String INSERT_QUERY = "INSERT INTO orders (customers_id, order_date, shippers_id)" +
             "VALUES (?, ?, ?)";
+
+    private static final String GET_LAST_PRODUCT_ID_QUERY = "SELECT id FROM orders " +
+            "ORDER BY id DESC LIMIT 1";
 
     private final Connection connection;
 
@@ -26,7 +27,6 @@ public class OrderRepositoryImpl extends BaseRepositoryImpl<Order, Long> impleme
     public Boolean save(Order order) {
         boolean isInserted = false;
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY);) {
-            connection.setAutoCommit(false);
             statement.setLong(1, order.getCustomerId());
             statement.setDate(2, order.getOrderDate());
             statement.setInt(3, order.getShipper().getId());
@@ -35,6 +35,16 @@ public class OrderRepositoryImpl extends BaseRepositoryImpl<Order, Long> impleme
             e.printStackTrace();
         }
         return isInserted;
+    }
+
+    public Long getLastOrderId() {
+        try (Statement statement = connection.createStatement();) {
+            ResultSet resultSet = statement.executeQuery(GET_LAST_PRODUCT_ID_QUERY);
+            if(resultSet.next()) return resultSet.getLong("id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0L;
     }
 
     @Override

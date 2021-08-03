@@ -36,19 +36,14 @@ public class CustomerMenu extends Menu implements RunnableMenu<Void>{
                 case 3:
                     ApplicationContext.customerService.depositBalance(customer);
                     break;
-                /*case 4:
+                case 4:
                     new EditCustomerInformationMenu(customer).runMenu();
-                    break;*/
+                    break;
                 case 5:
                     if(new CheckMenu("Are you sure you want to log out?").runMenu()) return null;
                     else break;
             }
         }
-    }
-
-    private void chooseProduct() throws SQLException {
-
-
     }
 }
 

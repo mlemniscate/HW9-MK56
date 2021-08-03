@@ -15,6 +15,7 @@ import java.util.List;
 public class ProductRepositoryImpl extends BaseProductRepositoryImpl<Product> implements ProductRepository {
 
     private static final String SELECT_ALL_BY_CATEGORY_QUERY = "SELECT * FROM products WHERE categories_id = ? && is_deleted = 0";
+    private static final String SELECT_PRODUCT_BY_ID_QUERY = "SELECT * FROM products WHERE id = ? && is_deleted = 0";
 
     private Connection connection;
 
@@ -44,7 +45,15 @@ public class ProductRepositoryImpl extends BaseProductRepositoryImpl<Product> im
     }
 
     @Override
-    public Product findByID(Long aLong) {
+    public Product findByID(Long id) {
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_PRODUCT_BY_ID_QUERY)) {
+            statement.setLong(1, id);
+            ResultSet result = statement.executeQuery();
+            if(result.next()) return createObject(result);
+        } catch (SQLException e) {
+            System.out.println("You have a problem in your customer select user pass query.");
+            e.printStackTrace();
+        }
         return null;
     }
 

@@ -107,8 +107,7 @@ public class CustomerServiceImpl extends BaseServiceImpl<Customer, Long, Custome
 
     // Get deposit amount from customer
     private double enterDepositAmount() throws SQLException {
-        return new InputDouble("Enter your deposit amount: ",
-                "Enter your deposit amount between 1$ and 1000$", 1000, 1, null
+        return new InputDouble("Enter your deposit amount between 1$ and 10,000$: ", 10_000, 1, null
         ).getDoubleInput();
     }
 

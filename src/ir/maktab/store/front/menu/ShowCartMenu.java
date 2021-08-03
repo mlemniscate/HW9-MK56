@@ -28,7 +28,6 @@ public class ShowCartMenu extends Menu implements RunnableMenu<Void>{
                     break;
                 case 2:
                     ApplicationContext.orderService.orderCart(cart, customer);
-                    System.out.println("Your orders ordered successfully.");
                     return null;
                 case 3:
                     return null;

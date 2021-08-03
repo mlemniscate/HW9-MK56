@@ -72,7 +72,7 @@ public class ShipperRepositoryImpl extends BaseRepositoryImpl<Shipper, Integer> 
         return new Shipper(
                 result.getInt("id"),
                 result.getString("shipper_name"),
-                result.getString("phone"),
+                result.getString("phone_number"),
                 result.getDouble("price"),
                 result.getInt("delivery_day")
         );

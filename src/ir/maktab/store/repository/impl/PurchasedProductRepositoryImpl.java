@@ -19,6 +19,9 @@ public class PurchasedProductRepositoryImpl extends BaseProductRepositoryImpl<Pu
     private static final String GET_LAST_PRODUCT_ID_QUERY = "SELECT id FROM products_purchased " +
             "ORDER BY id DESC LIMIT 1";
 
+    private static final String INSERT_QUERY = "INSERT INTO products_purchased (product_name, price, quantity, orders_id)" +
+            "VALUES (?, ?, ?, ?)";
+
     private final Connection connection;
 
     public PurchasedProductRepositoryImpl(Connection connection) {
@@ -28,7 +31,17 @@ public class PurchasedProductRepositoryImpl extends BaseProductRepositoryImpl<Pu
 
     @Override
     public Boolean save(PurchasedProduct order) {
-        return null;
+        boolean isInserted = false;
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY);) {
+            statement.setString(1, order.getName());
+            statement.setDouble(2, order.getPrice());
+            statement.setInt(3, order.getQuantity());
+            statement.setLong(4, new OrderRepositoryImpl(connection).getLastOrderId());
+            isInserted = statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return isInserted;
     }
 
     @Override

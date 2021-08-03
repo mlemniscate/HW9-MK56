@@ -23,10 +23,10 @@ public class CartServiceImpl extends BaseServiceImpl<Cart, Long, CartRepository>
     @Override
     public void addProductToCart(Product product, Cart cart, int quantity) {
         Map<Product, Integer> products = cart.getProducts();
-        Product equalProduct = hasSameProduct(product, cart);
-        if (!Objects.isNull(equalProduct)) {
-            products.put(product, products.get(equalProduct) + quantity);
-            repository.updateProduct(new CartProductChangeDTO(cart.getId(), product.getId(), products.get(product)));
+        Map.Entry<Product, Integer> entry = hasSameProduct(product, cart);
+        if (!Objects.isNull(entry)) {
+            products.put(entry.getKey(), entry.getValue() + quantity);
+            repository.updateProduct(new CartProductChangeDTO(cart.getId(), entry.getKey().getId(), entry.getValue()));
         } else if (products.size() < cart.getProductLimit()) {
             products.put(product, quantity);
             repository.saveProduct(new CartProductChangeDTO(cart.getId(), product.getId(), quantity));
@@ -35,10 +35,10 @@ public class CartServiceImpl extends BaseServiceImpl<Cart, Long, CartRepository>
         }
     }
 
-    private Product hasSameProduct(Product product, Cart cart) {
+    private Map.Entry<Product, Integer> hasSameProduct(Product product, Cart cart) {
         if (!Objects.isNull(cart.getProducts())) {
-            for (Product productKey : cart.getProducts().keySet()) {
-                if (productKey.getId().equals(product.getId())) return productKey;
+            for (Map.Entry<Product, Integer> entry : cart.getProducts().entrySet()) {
+                if (entry.getKey().getId().equals(product.getId())) return entry;
             }
         }
         return null;
@@ -75,7 +75,7 @@ public class CartServiceImpl extends BaseServiceImpl<Cart, Long, CartRepository>
     public double calculateCartTotalPrice(Cart cart) {
         double totalPrice = 0;
         for (Map.Entry<Product, Integer> entry : cart.getProducts().entrySet()) {
-            totalPrice += entry.getKey().getPrice();
+            totalPrice += entry.getKey().getPrice() * entry.getValue();
         }
         return totalPrice;
     }

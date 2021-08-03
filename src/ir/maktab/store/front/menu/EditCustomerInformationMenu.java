@@ -1,17 +1,18 @@
-/*
 package ir.maktab.store.front.menu;
 
-import ir.maktab.domain.Customer;
-import ir.maktab.util.service.CustomerService;
+
+import ir.maktab.store.ApplicationContext;
+import ir.maktab.store.domain.Customer;
+import ir.maktab.store.service.CustomerService;
 
 import java.sql.SQLException;
 
 public class EditCustomerInformationMenu extends Menu implements RunnableMenu<Void>{
-    Customer user;
+    private Customer customer;
 
     public EditCustomerInformationMenu(Customer customer) {
         super(new String[]{"Edit first name", "Edit last name", "Edit username", "Edit password", "Back"});
-        this.user = customer;
+        this.customer = customer;
     }
 
     @Override
@@ -20,22 +21,21 @@ public class EditCustomerInformationMenu extends Menu implements RunnableMenu<Vo
             showMenu();
             switch (getChosenItem()) {
                 case 1:
-                    CustomerService.editFirstName(user);
+                    ApplicationContext.customerService.editFirstName(customer);
                     break;
                 case 2:
-                    CustomerService.editLastName(user);
+                    ApplicationContext.customerService.editLastName(customer);
                     break;
                 case 3:
-                    CustomerService.editUsername(user);
+                    ApplicationContext.customerService.editUsername(customer);
                     break;
                 case 4:
-                    CustomerService.editPassword(user);
+                    ApplicationContext.customerService.editPassword(customer);
                     break;
                 case 5:
-                    CustomerService.update(user);
+                    ApplicationContext.customerService.update(customer);
                     return null;
             }
         }
     }
 }
-*/
